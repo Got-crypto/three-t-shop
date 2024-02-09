@@ -4,7 +4,7 @@ import { useSnapshot } from 'valtio'
 import { EditorTabs, FilterTabs } from "../config/constants"
 import state from '../store'
 
-import { fadeAnimtion, slideAnimation } from "../config/motion"
+import { fadeAnimation, slideAnimation } from "../config/motion"
 
 import { CustomButton, Tab } from "../components"
 
@@ -28,7 +28,7 @@ export default function Customizer() {
                     </div>
                 </motion.div>
 
-                <motion.div className="absolute z-10 top-5 right-5" {...fadeAnimtion}>
+                <motion.div className="absolute z-10 top-5 right-5" {...fadeAnimation}>
                     <CustomButton
                         type={"filled"}
                         title={"GO Back"}
