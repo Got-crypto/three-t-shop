@@ -10,6 +10,7 @@ import { CustomButton, Tab } from "../components"
 
 export default function Customizer() {
     const snap = useSnapshot(state)
+
   return (
     <AnimatePresence>
         {!snap.intro && (
@@ -32,7 +33,7 @@ export default function Customizer() {
                     <CustomButton
                         type={"filled"}
                         title={"GO Back"}
-                        handleClick={() => snap.intro = true}
+                        handleClick={() => state.intro = !snap.intro}
                         customStyles={"w-fit px-4 py-2.5 font-bold tex-sm"}
                     />
                     

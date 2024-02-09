@@ -5,7 +5,7 @@ import { useSnapshot } from "valtio"
 
 import state from "../store"
 
-export default function CameraRing({children}) {
+export default function CameraRig({children}) {
   const group = useRef(null)
   const snap = useSnapshot(state)
 
