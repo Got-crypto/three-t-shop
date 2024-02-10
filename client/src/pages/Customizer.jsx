@@ -40,7 +40,7 @@ export default function Customizer() {
                 </motion.div>
 
                 <motion.div
-                    className="filterTabs-container"
+                    className="filtertabs-container"
                     {...slideAnimation("up")}
                 >
                     {FilterTabs.map((tab) => (
