@@ -1,10 +1,12 @@
 import { AnimatePresence, motion } from 'framer-motion'
 import { useSnapshot } from 'valtio'
 
-import { EditorTabs, FilterTabs } from "../config/constants"
+import { DecalTypes, EditorTabs, FilterTabs } from "../config/constants"
 import state from '../store'
 
 import { fadeAnimation, slideAnimation } from "../config/motion"
+
+import { reader } from "../config/helpers"
 
 import { useState } from 'react'
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from "../components"
@@ -27,12 +29,50 @@ export default function Customizer() {
             case "colorpicker":
                 return <ColorPicker />
             case "filepicker":
-                return <FilePicker />
+                return <FilePicker
+                    file={file}
+                    setFile={setFile}
+                    readFile={readFile}
+                />
             case "aipicker":
                 return <AIPicker />
             default:
                 return null;
         }
+    }
+
+    const handleDecals = (type, result) => {
+        const decalType = DecalTypes[type]
+
+        state[decalType.stateProperty] = result
+
+        if(!activateFilterTab[decalType.filterTab]) {
+            handleActiveFilterTab(decalType.filter)
+        }
+    }
+
+    const handleActiveFilterTab = (tabName) => {
+        switch (tabName) {
+            case "logoShirt":
+                state.isLogoTexture = !activateFilterTab[tabName]
+                break;
+            case "stylishShirt":
+                state.isFullTexture = !activateFilterTab[tabName]
+                break;
+        
+            default:
+                state.isFullTexture = !true
+                state.isLogoTexture = true
+                break;
+        }
+    }
+
+    const readFile = (type) => {
+        reader(file)
+            .then((result) => {
+                handleDecals(type, result)
+                setActiveEditorTab("")
+            })
     }
 
   return (
