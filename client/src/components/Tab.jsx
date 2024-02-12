@@ -14,7 +14,11 @@ export default function Tab({tab, isFilterTab, isActiveTab, handleClick}) {
       onClick={handleClick}
       style={activeStyles}
     >
-      <img src={tab.icon} alt={tab.name} className={`${isActiveTab ? 'w-2/3 h-2/3' :  'w-11/12 h-11/12 object-contain' } `} />
+      <img
+        src={tab.icon}
+        alt={tab.name}
+        className={`${isActiveTab ? 'w-2/3 h-2/3' :  'w-11/12 h-11/12 object-contain' }`}
+      />
     </div>
   )
 }

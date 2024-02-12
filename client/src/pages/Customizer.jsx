@@ -6,10 +6,34 @@ import state from '../store'
 
 import { fadeAnimation, slideAnimation } from "../config/motion"
 
-import { CustomButton, Tab } from "../components"
+import { useState } from 'react'
+import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from "../components"
 
 export default function Customizer() {
     const snap = useSnapshot(state)
+
+    const [file, setFile] = useState("")
+    const [prompt, setPrompt] = useState()
+    const [generatingImg, setGeneratingImg] = useState()
+
+    const [activeEditorTab, setActiveEditorTab] = useState()
+    const [activateFilterTab, setActivateFilterTab] = useState({
+        logoShirt: true,
+        stylishShirt: false,
+    })
+
+    const generateTabContent = () => {
+        switch (activeEditorTab) {
+            case "colorpicker":
+                return <ColorPicker />
+            case "filepicker":
+                return <FilePicker />
+            case "aipicker":
+                return <AIPicker />
+            default:
+                return null;
+        }
+    }
 
   return (
     <AnimatePresence>
@@ -23,8 +47,10 @@ export default function Customizer() {
                     <div className="flex items-center min-h-screen">
                         <div className="editortabs-container tabs">
                             {EditorTabs.map((tab) => (
-                                <Tab key={tab.name} tab={tab} handleCLick={() => {}} />
+                                <Tab key={tab.name} tab={tab} handleClick={() => setActiveEditorTab(tab.name)} />
                             ))}
+
+                            {generateTabContent()}
                         </div>
                     </div>
                 </motion.div>
