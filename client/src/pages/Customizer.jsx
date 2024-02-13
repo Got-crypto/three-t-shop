@@ -65,6 +65,13 @@ export default function Customizer() {
                 state.isLogoTexture = true
                 break;
         }
+
+        setActivateFilterTab((prevState) => {
+            return {
+                ...prevState,
+                [tabName]: !prevState[tabName]
+            }
+        })
     }
 
     const readFile = (type) => {
@@ -110,7 +117,13 @@ export default function Customizer() {
                     {...slideAnimation("up")}
                 >
                     {FilterTabs.map((tab) => (
-                        <Tab key={tab.name} tab={tab} isFilterTab isActiveTab="" handleCLick={() => {}} />
+                        <Tab
+                            key={tab.name}
+                            tab={tab}
+                            isFilterTab
+                            isActiveTab={activateFilterTab[tab.name]}
+                            handleCLick={() => handleActiveFilterTab(tab.name)}
+                        />
                     ))}
                 </motion.div>
             </>
