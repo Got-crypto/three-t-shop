@@ -122,7 +122,7 @@ export default function Customizer() {
                             tab={tab}
                             isFilterTab
                             isActiveTab={activateFilterTab[tab.name]}
-                            handleCLick={() => handleActiveFilterTab(tab.name)}
+                            handleClick={() => handleActiveFilterTab(tab.name)}
                         />
                     ))}
                 </motion.div>
