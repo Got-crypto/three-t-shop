@@ -6,9 +6,10 @@ import state from '../store'
 
 import { fadeAnimation, slideAnimation } from "../config/motion"
 
-import { reader } from "../config/helpers"
+import { downloadCanvasToImage, reader } from "../config/helpers"
 
 import { useState } from 'react'
+import { download } from '../assets'
 import { AIPicker, ColorPicker, CustomButton, FilePicker, Tab } from "../components"
 
 export default function Customizer() {
@@ -48,9 +49,23 @@ export default function Customizer() {
 
     const handleSubmit = async (type) => {
         if(!prompt) return alert("Please enter a prompt")
-
         try {
-            
+            setGeneratingImg(true)
+
+            const response = await fetch('http://localhost:8080/api/v1/dalle', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({prompt})
+            })
+
+            const data = await response.json()
+
+
+
+            handleDecals(type, `data:image/png;base64,${data.photo}`)
+
         } catch (error) {
             alert(error)
         } finally {
@@ -144,6 +159,14 @@ export default function Customizer() {
                         />
                     ))}
                 </motion.div>
+
+                <button className='download-btn' onClick={downloadCanvasToImage}>
+                    <img
+                        src={download}
+                        alt='download_image'
+                        className='w-3/5 h-3/5 object-contain'
+                    />
+                </button>
             </>
         )}
     </AnimatePresence>
